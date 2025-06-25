@@ -113,6 +113,14 @@ scale: 1.15;
 
 }
 
+.hero_input{
+
+color: #d0d0d0;
+font-family: monospace;
+font-size: larger;
+
+
+}
 
 .hero_input::placeholder{
 
