@@ -60,9 +60,16 @@ html{
   color: #2258c3;
 }
 
+.ingredient_list{
+
+  list-style-type: none;
+
+
+}
+
 body {
    
-
+  color: #aaa6a6;
   display: flex;
   flex-direction: column;
   margin-top: 12rem;

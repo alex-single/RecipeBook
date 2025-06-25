@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet"href="{{ url_for('static', filename='css/base.css') }}">
+
     <title>Document</title>
 </head>
 <body>
-   <ul>
-        {% for ingredient in recipe %}
+    <h1>Ingredients</h1>
+   <ul name="ingredient-list">
+        {% for ingredient in recipe.ingredients %}
             <li> {{ingredient.name}} </li>
-
+        {% endfor %}
    </ul>
 </body>
 </html>
