@@ -1,18 +1,68 @@
-from flask import Flask, render_template, request
-from models import Recipe, Step, Ingredient
+from flask import Flask, render_template, request, redirect, url_for
+from models import Recipe, Step, Ingredient, Users
 from app import app
 import requests
 from bs4 import BeautifulSoup as bs
-from app import db
+from app import db, login_manager, check_password_hash, login_user,generate_password_hash,logout_user, login_required
 
 
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.query.get(int(user_id))
 
 @app.route("/")
 def home():
     return render_template('index.html')
-    
 
-@app.route("/submit/", methods= ['POST','GET'])
+@app.route('/register', methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        username = request.form.get("email")
+        password = request.form.get("password")
+
+        if Users.query.filter_by(username=username).first():
+            return render_template("sign_up.html", error="Username already taken!")
+
+        hashed_password = generate_password_hash(password, method="pbkdf2:sha256")
+
+        new_user = Users(username=username, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect(url_for("login"))
+    if request.method == "GET":
+        return render_template("sign_up.html")
+
+
+@app.route("/login", methods= ['POST', 'GET'])
+def login():
+    if request.method == 'GET':
+       
+
+     return render_template("login.html")
+    
+    if request.method == "POST":
+        username = request.form.get("email")
+        password = request.form.get("password")
+
+        user = Users.query.filter_by(username=username).first()
+
+        if user and check_password_hash(user.password, password):
+            login_user(user)
+            return redirect("/")
+        else:
+            return render_template("login.html", error="Invalid username or password")
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
+                    
+
+
+@app.route("/create-recipe/", methods= ['POST','GET'])
 def sub():
     if request.method == 'GET':
         return render_template('index.html')

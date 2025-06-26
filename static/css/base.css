@@ -110,13 +110,14 @@ button {
 margin-top: 10px;
 min-width: 70px;
 min-height: 30px;
-font-size: 2rem;
+font-size: 20px;
 font-family: monospace;
 }
 
 .hero_btn:hover{
 
 scale: 1.15;
+background-color: #747070;
 
 }
 
@@ -135,4 +136,66 @@ color: #d0d0d0;
 font-family: monospace;
 font-size: larger;
 
+}
+
+.password-input{
+  font-family: monospace;
+font-size: larger;
+color: #d0d0d0;
+}
+.password-input::placeholder{
+color: #d0d0d0;
+font-family: monospace;
+font-size: larger
+
+}
+
+.email-input{
+  font-family: monospace;
+font-size: larger;
+color: #d0d0d0;
+}
+.email-input::placeholder{
+color: #d0d0d0;
+font-family: monospace;
+font-size: larger
+
+}
+
+.login-form input {
+  display: block;
+  margin-bottom: 1.5rem;
+  box-sizing: border-box;
+}
+.login-form button {
+  margin-top: 0.5rem;
+  min-width: 30px;
+  min-height: 30px;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+
+.register-form input {
+  display: block;
+  margin-bottom: 1.5rem;
+  box-sizing: border-box;
+}
+.register-form button {
+  margin-top: 0.5rem;
+  min-width: 30px;
+  min-height: 30px;
+}
+
+.register-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+.error{
+  font-size: medium;
+  color: rgb(255, 0, 0);
 }
