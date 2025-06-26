@@ -112,6 +112,7 @@ min-width: 70px;
 min-height: 30px;
 font-size: 20px;
 font-family: monospace;
+text-decoration: none;
 }
 
 .hero_btn:hover{
@@ -198,4 +199,24 @@ font-size: larger
 .error{
   font-size: medium;
   color: rgb(255, 0, 0);
+}
+.register-link {
+  /* remove the underline */
+  text-decoration: none;
+  /* inherit the surrounding text color, or pick your own */
+  color: inherit;       /* or e.g. #d0d0d0 */
+  /* give it a little spacing from the login button */
+  margin-left: 1rem;
+  /* if you want it to behave like a button: */
+  padding: 0.5rem 1rem;
+  background: rgba(63,59,59,1);
+  border-radius: 5px;
+  display: inline-block;
+  cursor: pointer;
+}
+.register-link:hover {
+  opacity: 0.8;
+}
+.register-link:hover {
+  opacity: 0.8;
 }
