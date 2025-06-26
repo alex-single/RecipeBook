@@ -3,7 +3,7 @@ from models import Recipe, Step, Ingredient, Users
 from app import app
 import requests
 from bs4 import BeautifulSoup as bs
-from app import db, login_manager, check_password_hash, login_user,generate_password_hash,logout_user, login_required
+from app import db, login_manager, check_password_hash, login_user,generate_password_hash,logout_user, login_required,current_user
 
 
 
