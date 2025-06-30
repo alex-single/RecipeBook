@@ -11,8 +11,21 @@
     <h1>Ingredients</h1>
    <ul name="ingredient-list">
         {% for ingredient in recipe.ingredients %}
-            <li> {{ingredient.name}} </li>
+            <li> {{ ingredient.quantity ~ ' ' ~ ingredient.unit ~ ' ' ~ ingredient.name }} </li>
         {% endfor %}
+
    </ul>
+
+   <h2>Directions</h2>
+   <ol>
+    {% for step in recipe.steps %}
+        <li>
+            {{step.description}}
+
+        </li>
+    {%endfor%}
+
+
+   </ol>
 </body>
 </html>
