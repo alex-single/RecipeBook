@@ -42,7 +42,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
 
-        return redirect(url_for("login"))
+        return redirect(url_for("main.login"))
     if request.method == "GET":
         return render_template("sign_up.html")
 
@@ -75,6 +75,7 @@ def logout():
 
 
 @main.route("/create-recipe/", methods= ['POST','GET'])
+@login_required
 def sub():
     if request.method == 'GET':
         return render_template('index.html')
@@ -101,7 +102,7 @@ def sub():
                 recipeDetails = soup.find_all('ul', class_='mm-recipes-structured-ingredients__list')
                 title_tag = soup.find('h1', class_='article-heading text-headline-400')
                 title = title_tag.text.strip() if title_tag else 'Untitled'
-                r = Recipe(title=title, url=url)
+                r = Recipe(title=title, url=url, user=current_user)
                 ingredients = []
 
                 for item in recipeDetails:
@@ -168,4 +169,22 @@ def sub():
         db.session.commit()
 
         return render_template('recipe.html', recipe=r)        
-        
+    
+    
+@main.route("/bookviewer/", methods=['POST','GET'])
+@login_required
+def bookviewer():
+    if request.method == 'GET':
+            recipes = current_user.recipes.all()
+            return render_template("bookviewer.html", user=current_user, recipes=recipes)
+    
+    
+@main.route("/recipe/<int:recipe_id>")
+@login_required      
+def view_recipe(recipe_id):
+    recipe = Recipe.query.get_or_404(recipe_id)
+    return render_template("recipe.html", recipe=recipe)
+
+
+    
+   
