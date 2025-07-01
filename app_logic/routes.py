@@ -185,6 +185,8 @@ def view_recipe(recipe_id):
     recipe = Recipe.query.get_or_404(recipe_id)
     return render_template("recipe.html", recipe=recipe)
 
-
+@main.route('/recipe-submission/', methods=['POST','GET'])
+@login_required
+def recipe_submission():
     
-   
+    return render_template('recipe_sub.html')
