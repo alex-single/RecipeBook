@@ -220,3 +220,20 @@ font-size: larger
 .register-link:hover {
   opacity: 0.8;
 }
+.ingredient-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  align-items: center;
+}
+
+
+.direct-input{
+
+height: 10vh;
+
+}
+
+.ingredient-row .qty  { width: 8vw; }
+.ingredient-row .unit { width: 8vw; }
+.ingredient-row .name { width: 17vw; }

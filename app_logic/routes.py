@@ -189,4 +189,30 @@ def view_recipe(recipe_id):
 @login_required
 def recipe_submission():
     
-    return render_template('recipe_sub.html')
+    if request.method == 'POST':
+        title = request.form.get('title-input')
+        quantities = request.form.getlist('quantity-input')
+        units      = request.form.getlist('unit-input')
+        names      = request.form.getlist('name-input')
+        directions = request.form.get('directions-input')
+        
+        r = Recipe(title=title, url=None, user=current_user)
+        
+        for qty, unit, name in zip(quantities, units, names):
+            if name.strip():  # skip empty rows
+                ing = Ingredient(
+                    name=name.strip(),
+                    quantity=float(qty) if qty else None,
+                    unit=unit.strip(),
+                    recipe=r
+                )
+                db.session.add(ing)
+        
+        db.session.commit()
+        
+        r.steps.append(Step(description=directions))
+        return render_template('recipe.html', recipe = r)
+    
+    else:
+    
+        return render_template('recipe_sub.html')

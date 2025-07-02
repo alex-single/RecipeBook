@@ -18,7 +18,7 @@ class Recipe(db.Model):
     __tablename__ = 'recipes'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), nullable=False)
-    url = db.Column(db.String(256), unique=True, nullable=False)
+    url = db.Column(db.String(256), unique=True, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship(
         'Users',

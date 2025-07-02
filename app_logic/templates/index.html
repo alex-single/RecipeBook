@@ -25,6 +25,9 @@ rel="stylesheet"href="{{ url_for('static', filename='css/base.css') }}">
       <li class="item">
         <a href="{{url_for('main.bookviewer')}}">bookviewer</a>
       </li>
+      <li>
+        <a href="{{url_for('main.recipe_submission')}}">Create</a>
+      </li>
     {% else %}
       <!-- show this when user is not logged in -->
       <li class="item">

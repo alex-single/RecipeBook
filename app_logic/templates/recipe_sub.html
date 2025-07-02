@@ -1,20 +1,84 @@
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link
 rel="stylesheet"href="{{ url_for('static', filename='css/base.css') }}">
-    <title>Create Recipe</title>
 </head>
-<body>
 
-    <form action="{{url_for(main.recipe_submission)}}">
-    
-    
-    
-    
-    
-    
-    </form>
-</body>
+
+<form action="{{ url_for('main.recipe_submission') }}" method="post" name="recipe-sub">
+  <label>Title</label><br>
+  <input name="title-input" type="text"><br>
+
+  <label>Ingredients</label>
+  
+
+  <!-- container for all your ingredient inputs -->
+  <div id="ingredients-container">
+    <!-- start with one by default -->
+    <div class="ingredient-row">
+    <input
+      class="qty"
+      name="quantity-input"
+      type="text"
+      placeholder="e.g. 1/4">
+    <input
+      class="unit"
+      name="unit-input"
+      type="text"
+      placeholder="e.g. cups">
+    <input
+      class="name"
+      name="name-input"
+      type="text"
+      placeholder="e.g. flour">
+  </div>
+  </div>
+<button type="button" id="add-ingredient">+ Add</button><br>
+  
+
+  <label>Directions</label><br>
+  <input class="direct-input" name="directions-input" type="text"><br>
+
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  document
+    .getElementById('add-ingredient')
+    .addEventListener('click', () => {
+      const container = document.getElementById('ingredients-container');
+      
+      const row = document.createElement('div');
+      row.className = 'ingredient-row';
+
+      const ing_name = document.createElement('input');
+      ing_name.type = 'text';
+      ing_name.name = 'name-input';          // same name for getlist()
+      ing_name.placeholder = 'e.g. salt';   
+         // optional
+      const ing_unit = document.createElement('input')
+      ing_unit.type = 'text'
+      ing_unit.name = 'unit-input'
+      ing_unit.placeholder = 'e.g. cups'
+
+      const ing_quantity = document.createElement('input')
+      ing_quantity.type = 'text'
+      ing_quantity.name = 'quantity-input'
+      ing_quantity.placeholder = 'e.g. 1/4, 2, 1...'
+      
+      ing_quantity.classList.add('qty');
+      ing_unit.classList.add('unit');
+      ing_name.classList.add('name');
+
+      
+      row.appendChild(ing_quantity);
+      row.appendChild(ing_unit);
+      row.appendChild(ing_name);
+      container.appendChild(row);
+    });
+</script>
 </html>
