@@ -25,7 +25,7 @@ rel="stylesheet"href="{{ url_for('static', filename='css/base.css') }}">
       <li class="item">
         <a href="{{url_for('main.bookviewer')}}">bookviewer</a>
       </li>
-      <li>
+      <li class="item">
         <a href="{{url_for('main.recipe_submission')}}">Create</a>
       </li>
     {% else %}
@@ -40,19 +40,24 @@ rel="stylesheet"href="{{ url_for('static', filename='css/base.css') }}">
 
 
     </nav>
-    <h1> From Link to Recipe!</h1>
-    <img src="{{ url_for('static', filename='assets/chill_carrot.png') }}">   
+
+   <div class="form-container">
+    <img
+      class="carrot-man"
+      src="{{ url_for('static', filename='assets/chill_carrot.png') }}"
+      alt="carrot mascot">
     <form action="{{ url_for('main.sub') }}" method="post">
-        <input 
-                name="url"
-                type="text" 
-                placeholder="paste url here"
-                class=hero_input>
-                <br>
-
-        <button class="hero_btn">Submit</button>
-
-
+      <h1>From Link to Recipe!</h1>
+      <div class="input-with-icon">
+        <input
+          name="url"
+          type="text"
+          placeholder="paste url here"
+          class="hero_input">
+      </div>
+      <button class="hero_btn">Submit</button>
     </form>
+  </div>
+
 </body>
 </html>

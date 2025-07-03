@@ -20,20 +20,19 @@ html{
 /* example styles */
 
 .navbar {
-  display: flex;
-  background: #aaa6a6;
-  border-radius: 30px;
-  padding: 10px 20px;
-  margin: 0 auto;
+    
   margin-top: 20px;
-  width: 30%;
-  justify-content: space-between;
-  align-items: center;
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
+  /* center yourself: */
+  left: 50%;
+  transform: translateX(-50%);
+  
+  display: inline-flex;  /* shrink-to-fit instead of filling the whole row */
+  padding: 10px 20px;
+  background: #aaa6a6;
+  border-radius: 30px;
+  /* no width, no left/right */
 }
 
 
@@ -106,20 +105,24 @@ button {
   border-radius: 5px
 
 }
-.hero_btn{
-margin-top: 10px;
-min-width: 70px;
-min-height: 30px;
-font-size: 20px;
-font-family: monospace;
-text-decoration: none;
+.hero_btn {
+  display: inline-block;       /* allow width/padding on anchors */
+  padding: 0.5rem 1rem;
+  background: rgb(63, 59, 59);
+  color: white;
+  border: none;                /* anchors ignore this, but buttons obey it */
+  border-radius: 5px;
+  font-size: 20px;
+  font-family: monospace;
+  text-decoration: none;       /* remove underline on the <a> */
+  text-align: center;          /* center text in anchor if it grows */
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.1s;
 }
 
-.hero_btn:hover{
-
-scale: 1.15;
-background-color: #747070;
-
+.hero_btn:hover {
+  transform: scale(1.15);
+  background-color: #747070;
 }
 
 .hero_input{
@@ -237,3 +240,67 @@ height: 10vh;
 .ingredient-row .qty  { width: 8vw; }
 .ingredient-row .unit { width: 8vw; }
 .ingredient-row .name { width: 17vw; }
+
+.link_img{
+
+width: 20px;
+height: 20px;
+
+
+}
+
+.input-with-icon {
+  position: relative;
+  width: 60vw;            /* or whatever width you like */
+}
+
+.hero_input {
+  width: 100%;
+  /* space on the left for the icon: */
+  padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+
+  /* put your link-icon inside the input, on the left: */
+  background:
+    url('../assets/link_symbol.png')    /* adjust path to your built CSS */
+    no-repeat
+    left .35rem center;                /* 0.75rem from the left, vertically centered */
+  background-size: 1.6rem;             /* size of your PNG */
+
+  /* your other styles… */
+}
+
+.link_icon {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;         /* tweak to taste */
+  width: 1.25rem;         /* icon size */
+  height: auto;
+  pointer-events: none; 
+    /* so clicks go to the input, not the img */
+}
+
+/* Horizontal layout for carrot + form */
+.form-container {
+  display: flex;
+  align-items: flex-start;    /* carrot top aligns with form’s top */
+  justify-content: center;
+  gap: 1rem;                   /* space between carrot and form */
+  margin-top: 8rem;           /* match your existing body margin-top */
+}
+
+/* size the carrot and give it some breathing room */
+.carrot-man {
+  flex-shrink: 0;   /* never squish the carrot */
+    margin-top: -3rem;  /* move up by 1.5rem */
+    width: 200px;
+    height: auto;
+
+}
+
+/* if you want form items stacked */
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
