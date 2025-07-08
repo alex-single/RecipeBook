@@ -7,6 +7,9 @@ from .models import db, Recipe, Ingredient, Step, Users
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import login_manager
+from validate_email_address import validate_email
+
+
 
 main = Blueprint('main', __name__)
 
@@ -31,6 +34,8 @@ def home():
 def register():
     if request.method == "POST":
         username = request.form.get("email")
+        if not validate_email(username):
+            return render_template("sign_up.html", error="Not a Valid email")
         password = request.form.get("password")
 
         if Users.query.filter_by(username=username).first():

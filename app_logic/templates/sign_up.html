@@ -19,5 +19,9 @@ rel="stylesheet"href="{{ url_for('static', filename='css/base.css') }}">
         <button class="hero_btn"> Register</button>
 
     </form>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
 </body>
 </html>

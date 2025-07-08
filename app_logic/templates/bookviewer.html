@@ -9,9 +9,11 @@
 </head>
 <body>
 
+<h1 class="recipe-book-header"><u>Recipes</u> </h1>
+
 <ul>
   {% for recipe in recipes %}
-    <li>
+    <li class="recipe-list">
       <a
         class="hero_btn"
         href="{{ url_for('main.view_recipe', recipe_id=recipe.id) }}">
