@@ -1,6 +1,14 @@
 from . import db
 from flask_login import UserMixin
 
+
+user_grocery = db.Table(
+    'user_grocery',
+    db.Column('user_id',   db.Integer, db.ForeignKey('users.id')),
+    db.Column('recipe_id', db.Integer, db.ForeignKey('recipes.id')) 
+)
+
+
 class Users(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -12,6 +20,14 @@ class Users(UserMixin, db.Model):
         cascade='all, delete-orphan',
         lazy='dynamic'
     )
+    grocery_recipes = db.relationship(
+        'Recipe',
+        secondary=user_grocery,
+        backref='in_grocery_of',
+        lazy='dynamic'
+    )
+
+
 
 
 class Recipe(db.Model):

@@ -11,19 +11,36 @@
 
 <h1 class="recipe-book-header"><u>Recipes</u> </h1>
 
-<ul>
+<ul class="recipe-list">
   {% for recipe in recipes %}
-    <li class="recipe-list">
+    <li class="recipe-entry">
       <a
         class="hero_btn"
         href="{{ url_for('main.view_recipe', recipe_id=recipe.id) }}">
         {{ recipe.title }}
       </a>
+      
+      <form
+    action="{{ url_for('main.addtolist', recipe_id=recipe.id) }}"
+    method="post"
+    style="display:inline;"
+  >
+    <button type="submit" class="hero_btn">Add to Grocery +</button>
+</form>
+
+
     </li>
   {% endfor %}
 </ul>
 
+<div class="grocery-list">
+<ul>
+{% for item in groceries %}
 
+<li>{{item.name}}  </li>
 
+{%endfor%}
+</ul>
+</div>
 </body>
 </html>

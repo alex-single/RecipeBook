@@ -39,7 +39,7 @@ def register():
         password = request.form.get("password")
 
         if Users.query.filter_by(username=username).first():
-            return render_template("sign_up.html", error="Username already taken!")
+            return render_template("sign_up.html", error="Email already linked to Another account!")
 
         hashed_password = generate_password_hash(password, method="pbkdf2:sha256")
 
@@ -182,6 +182,7 @@ def bookviewer():
     if request.method == 'GET':
             recipes = current_user.recipes.all()
             return render_template("bookviewer.html", user=current_user, recipes=recipes)
+        
     
     
 @main.route("/recipe/<int:recipe_id>")
@@ -221,3 +222,34 @@ def recipe_submission():
     else:
     
         return render_template('recipe_sub.html')
+    
+@main.route('/add-to-grocery/<int:recipe_id>', methods=['POST'])
+@login_required
+def addtolist(recipe_id):
+    recipe = Recipe.query.get_or_404(recipe_id)
+    current_user.grocery_recipes.append(recipe)
+    db.session.commit()
+    return redirect(url_for('main.groceryfetch'))
+
+
+@main.route('/groceries-fetch', methods=['GET'])
+@login_required
+def groceryfetch():
+    recipes =  current_user.grocery_recipes.all()
+    groceries = [
+        {
+            'name': ing.name,
+            'unit': ing.unit,
+            'quantity': ing.quantity
+        }
+        for recipe in recipes
+        for ing in recipe.ingredients
+    ]
+    allrecipes = current_user.recipes.all()
+    return render_template(
+        'bookviewer.html',
+        recipes=allrecipes,
+        groceries=groceries
+    )
+    
+    

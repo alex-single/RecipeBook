@@ -323,9 +323,17 @@ input,
 textarea {
   color: white;
 }
-.recipe-list{
+.recipe-entry{
 
   list-style-type: none;
+
+}
+
+.recipe-list{
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
 
 
