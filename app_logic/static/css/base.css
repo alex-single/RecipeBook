@@ -326,7 +326,14 @@ textarea {
 .recipe-entry{
 
   list-style-type: none;
+  display: flex;
+  align-items: center;  /* vertically center them */
+  
 
+}
+
+.recipe-entry button {
+  margin: 5px;               /* remove that 40% left / 5px top */
 }
 
 .recipe-list{
@@ -338,9 +345,54 @@ textarea {
 
 
 }
-.recipe-book-header{
+.recipe-grocery-group {
+  display: flex;        /* make children sit in a row */
+  gap: 10rem;            /* space between them */
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1rem;
+}
 
-  
+.recipe-list{
+flex: 1;
+margin-right: 40px;
 
 
+}
+.grocery-list {
+  flex: 1;   
+  margin-left: 30px;     
+  /* optionally: max-width, min-width, etc. */
+}
+
+
+
+.addtogrocery{
+
+  display: inline-block;       /* allow width/padding on anchors */
+  padding: 10px 10px;
+  background: rgb(63, 59, 59);
+  color: white;
+  border: none;                /* anchors ignore this, but buttons obey it */
+  border-radius: 9999px;
+  font-size: 20px;
+  font-family: monospace;
+  text-decoration: none;       /* remove underline on the <a> */
+  text-align: center;          /* center text in anchor if it grows */
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.1s;
+
+}
+
+
+
+.addtogrocery:hover {
+  transform: scale(1.15);
+  background-color: #747070;
+}
+
+.grocery-header{
+
+  display: flex;
+  flex-direction: row;
 }

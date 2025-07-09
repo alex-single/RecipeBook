@@ -24,7 +24,8 @@ class Users(UserMixin, db.Model):
         'Recipe',
         secondary=user_grocery,
         backref='in_grocery_of',
-        lazy='dynamic'
+        lazy= 'dynamic'
+        
     )
 
 

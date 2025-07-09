@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 from fractions import Fraction
 from flask import Blueprint, render_template, request, redirect, url_for
-from .models import db, Recipe, Ingredient, Step, Users
+from .models import db, Recipe, Ingredient, Step, Users, user_grocery
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import login_manager
@@ -13,6 +13,23 @@ from validate_email_address import validate_email
 
 main = Blueprint('main', __name__)
 
+
+@main.context_processor
+def inject_groceries():
+    if current_user.is_authenticated:
+        recipes = current_user.grocery_recipes.all()
+        groceries = [
+            {
+                'quantity': ing.quantity,
+                'unit': ing.unit,
+                'name': ing.name
+            }
+            for recipe in recipes
+            for ing in recipe.ingredients
+        ]
+    else:
+        groceries = []
+    return dict(groceries=groceries)
 
 def parse_quantity(q):
     try:
@@ -181,6 +198,7 @@ def sub():
 def bookviewer():
     if request.method == 'GET':
             recipes = current_user.recipes.all()
+            groceries = current_user.grocery_recipes.all()
             return render_template("bookviewer.html", user=current_user, recipes=recipes)
         
     
@@ -252,4 +270,12 @@ def groceryfetch():
         groceries=groceries
     )
     
-    
+@main.route('/grocery-clear', methods=['POST'])
+@login_required
+def groceryclear():
+    db.session.execute(
+    user_grocery.delete().where(user_grocery.c.user_id == current_user.id)
+)
+    db.session.commit()
+
+    return redirect(url_for('main.bookviewer'))

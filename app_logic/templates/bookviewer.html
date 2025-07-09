@@ -6,9 +6,38 @@
    <link rel="stylesheet"href="{{ url_for('static', filename='css/base.css') }}">
 
     <title>Document</title>
+
+    <nav class="navbar">
+
+      <ul class="menu">
+        <li class="item"><a href="{{url_for('main.home')}}">Home</a></li>
+{% if current_user.is_authenticated %}
+      <!-- show this when user is logged in -->
+      <li class="item">
+        <a href="{{ url_for('main.logout') }}">Logout</a>
+      </li>
+      <li class="item">
+        <a href="{{url_for('main.bookviewer')}}">Recipebook</a>
+      </li>
+      <li class="item">
+        <a href="{{url_for('main.recipe_submission')}}">Create</a>
+      </li>
+    {% else %}
+      <!-- show this when user is not logged in -->
+      <li class="item">
+        <a href="{{ url_for('main.login') }}">Login</a>
+      </li>
+      <li class="item">
+        <a href="{{ url_for('main.register') }}">Register</a>
+      </li>
+    {% endif %}
+
+
+    </nav>
 </head>
 <body>
-
+<div class="recipe-grocery-group">
+<div class="recipe-list">
 <h1 class="recipe-book-header"><u>Recipes</u> </h1>
 
 <ul class="recipe-list">
@@ -23,24 +52,34 @@
       <form
     action="{{ url_for('main.addtolist', recipe_id=recipe.id) }}"
     method="post"
-    style="display:inline;"
+    
   >
-    <button type="submit" class="hero_btn">Add to Grocery +</button>
+    <button type="submit" class="addtogrocery"> +</button>
 </form>
 
 
     </li>
   {% endfor %}
 </ul>
+</div>
 
+
+  
 <div class="grocery-list">
+<div class="grocery-header">
+<h1><u>Grocery List</u></h1>
+<form action="{{url_for('main.groceryclear')}}" method="post">
+<button type="submit" class="hero-button"> Clear </button>
+</form>
+</div>
 <ul>
 {% for item in groceries %}
 
-<li>{{item.name}}  </li>
+<li> {{ item.quantity ~ ' ' ~ item.unit ~ ' ' ~ item.name }} </li>
 
 {%endfor%}
 </ul>
+</div>
 </div>
 </body>
 </html>
